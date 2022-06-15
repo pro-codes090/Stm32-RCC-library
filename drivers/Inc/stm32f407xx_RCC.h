@@ -10,7 +10,16 @@
 
 #include "stm32f407xx.h"
 #include <math.h>
+///////////////////////// SYSTEM CLOCK INFO //////////////////////////
+#define AHB_MAX_FREQ 	168000000 // MHZ
+#define APB1_MAX_FREQ 	42000000	// MHZ
+#define APB2_MAX_FREQ 	84000000	// MHZ
+#define AHB2_MAX_FREQ 	168000000 // MHZ
+#define SYSTEM_HSE		 8000000	// MHZ
+#define SYSTEM_HSI 	    16000000  // MHZ
+//////////////////////////////////////////////////////////////////////
 #define RCC_DEBUG 0
+
 #define HSE_CLOCK 1
 #define HSI_CLOCK 0
 #define PLL_CLOCK 2
@@ -26,15 +35,15 @@
 #define MCO_PRE_4	0x06
 #define MCO_PRE_5	0x07
 
-#define AHB_PRE_1		0x00
-#define AHB_PRE_2		0x08
-#define AHB_PRE_4		0x09
-#define AHB_PRE_8		0x0A
-#define AHB_PRE_16		0x0B
-#define AHB_PRE_64		0x0C
-#define AHB_PRE_128		0x0D
-#define AHB_PRE_256		0x0E
-#define AHB_PRE_512		0x0F
+#define AHB_FREQ_HSI_16M   16000000
+#define AHB_FREQ_HSI_8M    8000000
+#define AHB_FREQ_HSI_4M    4000000
+#define AHB_FREQ_HSI_2M    2000000
+#define AHB_FREQ_HSI_1M    1000000
+#define AHB_FREQ_HSI_250K  250000
+#define AHB_FREQ_HSI_125K  125000
+#define AHB_FREQ_HSI_62K   62500
+#define AHB_FREQ_HSI_31K   31250
 
 #define RCC_CR_HSION 		00
 #define RCC_CR_HSIRDY 		01
@@ -53,9 +62,9 @@
 
 typedef struct{
 uint8_t clockSource ;
-uint8_t AHB_Prescaler ;
-uint8_t APB1_Prescaler ;
-uint8_t APB2_Prescaler ;
+uint8_t AHB_ClockFreq  ;
+uint8_t APB1_ClockFreq ;
+uint8_t APB2_ClockFreq ;
 uint8_t MC01_prescaler ;
 uint8_t MC02_prescaler ;
 uint8_t MC01_source;
@@ -72,7 +81,7 @@ RCC_Configuration_t RCC_Config ;
 void RCC_Init(RCC_Handle_t* pRCCHandle );
 
 void changeClockSource(RCC_Handle_t* pRCCHandle );
-void setSystemClock(RCC_Handle_t* pRCCHandle) ;
+void setAHB1lock(RCC_Handle_t* pRCCHandle) ;
 void setAPB1Clock(RCC_Handle_t* pRCCHandle) ;
 void setAPB2Clock(RCC_Handle_t* pRCCHandle) ;
 

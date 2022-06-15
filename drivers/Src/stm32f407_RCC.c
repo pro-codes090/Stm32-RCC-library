@@ -12,6 +12,34 @@ void RCC_Init(RCC_Handle_t* pRCCHandle ){
 
 }
 
+void setAHB1lock(RCC_Handle_t* pRCCHandle) {
+
+	if (pRCCHandle->RCC_Config.AHB_ClockFreq <= 16000000) {
+
+	if (pRCCHandle->RCC_Config.clockSource == HSI_CLOCK) {
+
+		uint8_t temp = SYSTEM_HSI / pRCCHandle->RCC_Config.AHB_ClockFreq ;
+		uint8_t value = 0 ;
+		if (temp == 1) {
+
+		}else if (tep >= 64) {
+
+		}
+		for (uint8_t i=0 ;temp !=2 ; i++) {
+			temp = temp / 2 ;
+		}
+
+	 }else if (pRCCHandle->RCC_Config.clockSource == HSE_CLOCK) {
+
+	 }
+
+	}else if ((pRCCHandle->RCC_Config.AHB_ClockFreq > 16000000 )&& (pRCCHandle->RCC_Config.clockSource == PLL_CLOCK)) {
+
+	}
+
+}
+
+
 void changeClockSource( RCC_Handle_t* pRCCHandle) {
 
 	if (pRCCHandle->RCC_Config.clockSource == HSI_CLOCK) {
