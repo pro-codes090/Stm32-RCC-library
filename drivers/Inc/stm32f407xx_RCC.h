@@ -18,8 +18,9 @@
 #define SYSTEM_HSE		 8000000	// MHZ
 #define SYSTEM_HSI 	    16000000  // MHZ
 //////////////////////////////////////////////////////////////////////
-#define RCC_DEBUG 0
-
+#ifndef RCC_DEBUG
+#define RCC_DEBUG 1
+#endif
 #define HSE_CLOCK 1
 #define HSI_CLOCK 0
 #define PLL_CLOCK 2
@@ -35,6 +36,7 @@
 #define MCO_PRE_4	0x06
 #define MCO_PRE_5	0x07
 
+// Use the below options when using HSI as a clock source for setting AHB bus clock frequency
 #define AHB_FREQ_HSI_16M   16000000
 #define AHB_FREQ_HSI_8M    8000000
 #define AHB_FREQ_HSI_4M    4000000
@@ -44,6 +46,65 @@
 #define AHB_FREQ_HSI_125K  125000
 #define AHB_FREQ_HSI_62K   62500
 #define AHB_FREQ_HSI_31K   31250
+
+// Use the below options when using HSE as a clock source for setting AHB bus clock frequency
+	/* Default value of HSE in most ST dev board is 8MHZ
+	 * Incase if the default HSE is different in your case then add the values in the below fashion
+	 *
+	 * Divide the frequency of the oscillator (HSE) by 1 , 2 ,4 ,8 , 16 , 64 , 128 , 25 ,512
+	 * and add/change the names of the macros accordingly
+	 * */
+#define AHB_FREQ_HSE_8M    8000000
+#define AHB_FREQ_HSE_4M    4000000
+#define AHB_FREQ_HSE_2M    2000000
+#define AHB_FREQ_HSE_1M    1000000
+#define AHB_FREQ_HSE_250K  250000
+#define AHB_FREQ_HSE_125K  125000
+#define AHB_FREQ_HSE_62K   62500
+#define AHB_FREQ_HSE_31K   31250
+
+// Use the below options when using HSI as a clock source for setting APB1 bus clock frequency
+#define APB1_FREQ_HSI_16M   16000000
+#define APB1_FREQ_HSI_8M    8000000
+#define APB1_FREQ_HSI_4M    4000000
+#define APB1_FREQ_HSI_2M    2000000
+#define APB1_FREQ_HSI_1M    1000000
+//#define APB1_FREQ_HSI_250K  250000
+//#define APB1_FREQ_HSI_125K  125000
+//#define APB1_FREQ_HSI_62K   62500
+//#define APB1_FREQ_HSI_31K   31250
+
+// Use the below options when using HSE as a clock source for setting APB1 bus clock frequency
+#define APB1_FREQ_HSE_8M    8000000
+#define APB1_FREQ_HSE_4M    4000000
+#define APB1_FREQ_HSE_2M    2000000
+#define APB1_FREQ_HSE_1M    1000000
+#define APB1_FREQ_HSE_500K  500000
+//#define APB1_FREQ_HSE_125K  125000
+//#define APB1_FREQ_HSE_62K   62500
+//#define APB1_FREQ_HSE_31K   31250
+
+// Use the below options when using HSI as a clock source for setting APB2 bus clock frequency
+#define APB2_FREQ_HSI_16M   16000000
+#define APB2_FREQ_HSI_8M    8000000
+#define APB2_FREQ_HSI_4M    4000000
+#define APB2_FREQ_HSI_2M    2000000
+#define APB2_FREQ_HSI_1M    1000000
+//#define APB2_FREQ_HSI_250K  250000
+//#define APB2_FREQ_HSI_125K  125000
+//#define APB2_FREQ_HSI_62K   62500
+//#define APB2_FREQ_HSI_31K   31250
+
+// Use the below options when using HSE as a clock source for setting APB2 bus clock frequency
+#define APB2_FREQ_HSE_8M    8000000
+#define APB2_FREQ_HSE_4M    4000000
+#define APB2_FREQ_HSE_2M    2000000
+#define APB2_FREQ_HSE_1M    1000000
+#define APB2_FREQ_HSE_500K  500000
+//#define APB2_FREQ_HSE_125K  125000
+//#define APB2_FREQ_HSE_62K   62500
+//#define APB2_FREQ_HSE_31K   31250
+
 
 #define RCC_CR_HSION 		00
 #define RCC_CR_HSIRDY 		01
@@ -62,9 +123,10 @@
 
 typedef struct{
 uint8_t clockSource ;
-uint8_t AHB_ClockFreq  ;
-uint8_t APB1_ClockFreq ;
-uint8_t APB2_ClockFreq ;
+uint32_t APB1_ClockFreq ;
+uint32_t APB2_ClockFreq ;
+volatile uint32_t AHB_ClockFreq  ;
+uint8_t PLLSource ;
 uint8_t MC01_prescaler ;
 uint8_t MC02_prescaler ;
 uint8_t MC01_source;

@@ -21,17 +21,16 @@
 #include "stm32f407xx_RCC.h"
 #include "stm32f407xx_gpio_driver.h"
 
-
 RCC_Handle_t rcchandle ;
 GPIO_Handle_t GpioLed ;
 
 
 void MCO_Config(){
 
-GpioLed.pGPIOx = GPIOA ;
+GpioLed.pGPIOx = GPIOC ;
 GPIOA_CLOCK_ENABLE() ;
 
-GpioLed.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_8 ;
+GpioLed.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_9 ;
 GpioLed.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_ALTFN ;
 GpioLed.GPIO_PinConfig.GPIO_PinOPType = GPIO_OP_TYPE_PP;
 GpioLed.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_HIGH ;
@@ -46,15 +45,21 @@ int main(void)
 	printf("application running \n"  ) ;
 
 	rcchandle.pRCC = RCC ;
-	rcchandle.RCC_Config.clockSource = HSI_CLOCK;
+	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+	rcchandle.RCC_Config.AHB_ClockFreq = 168000000 ;
+	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+	rcchandle.RCC_Config.APB1_ClockFreq = 16000000 ;
+	rcchandle.RCC_Config.APB2_ClockFreq = 16000000 ;
+
+	RCC->CFGR |= (7 << 27) ;
 
 	MCO_Config();
+	setAHB1lock(&rcchandle) ;
+	setAPB1Clock(&rcchandle) ;
+	setAPB2Clock(&rcchandle) ;
+  	changeClockSource(&rcchandle) ;
 
-	printf("clock source is %d \n" , getClockSource(&rcchandle) );
-	printf("AHB1 clock is %d \n" , getAHBClock(&rcchandle));
-	printf("APB1 clock is %d \n" , getAPB1Clock(&rcchandle) );
-	printf("APB2 clock is %d \n" , getAPB2Clock(&rcchandle));
+	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
 
-
-for(;;);
+ for(;;);
 }
