@@ -42,24 +42,417 @@ GPIO_Init(&GpioLed);
 
 int main(void)
 {
-	printf("application running \n"  ) ;
 
 	rcchandle.pRCC = RCC ;
 	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
-	rcchandle.RCC_Config.AHB_ClockFreq = 168000000 ;
+	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
 	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
-	rcchandle.RCC_Config.APB1_ClockFreq = 16000000 ;
-	rcchandle.RCC_Config.APB2_ClockFreq = 16000000 ;
+	rcchandle.RCC_Config.APB1_ClockFreq = 42000000;
+	rcchandle.RCC_Config.APB2_ClockFreq = 84000000;
 
-	RCC->CFGR |= (7 << 27) ;
-
-	MCO_Config();
-	setAHB1lock(&rcchandle) ;
-	setAPB1Clock(&rcchandle) ;
-	setAPB2Clock(&rcchandle) ;
-  	changeClockSource(&rcchandle) ;
+	RCC_Init(&rcchandle) ;
 
 	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 22000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 22000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 24000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 24000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 24000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 24000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 26000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 26000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 28000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 28000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 30000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 30000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 32000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 32000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 34000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 34000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 36000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 36000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 38000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 38000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 40000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 40000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 42000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 42000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 44000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 44000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 46000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 46000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 48000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 48000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 50000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 50000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 52000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 52000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 54000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 54000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 56000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 56000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 58000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 58000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 60000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 60000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 62000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 62000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 64000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 64000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 66000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 66000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 68000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 68000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 70000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 70000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 72000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 72000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 74000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 74000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 76000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 76000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 78000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 78000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 80000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 80000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 82000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 82000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//	rcchandle.pRCC = RCC ;
+//	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
+//	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
+//	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
+//	rcchandle.RCC_Config.APB1_ClockFreq = 84000000;
+//	rcchandle.RCC_Config.APB2_ClockFreq = 84000000;
+//
+//	RCC_Init(&rcchandle) ;
+//
+//	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
+//	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
+//	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+//
 
  for(;;);
 }

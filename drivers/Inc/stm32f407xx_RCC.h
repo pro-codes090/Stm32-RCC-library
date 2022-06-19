@@ -19,7 +19,7 @@
 #define SYSTEM_HSI 	    16000000  // MHZ
 //////////////////////////////////////////////////////////////////////
 #ifndef RCC_DEBUG
-#define RCC_DEBUG 1
+#define RCC_DEBUG 0
 #endif
 #define HSE_CLOCK 1
 #define HSI_CLOCK 0
