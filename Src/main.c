@@ -27,11 +27,11 @@ GPIO_Handle_t GpioLed ;
 
 void MCO_Config(){
 
-GpioLed.pGPIOx = GPIOC ;
+GpioLed.pGPIOx = GPIOD ;
 GPIOA_CLOCK_ENABLE() ;
 
-GpioLed.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_9 ;
-GpioLed.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_ALTFN ;
+GpioLed.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_15 ;
+GpioLed.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUTPUT;
 GpioLed.GPIO_PinConfig.GPIO_PinOPType = GPIO_OP_TYPE_PP;
 GpioLed.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_HIGH ;
 GpioLed.GPIO_PinConfig.GPIO_PinPUPDControl = GPIO_NO_PUPD ;
@@ -42,19 +42,22 @@ GPIO_Init(&GpioLed);
 
 int main(void)
 {
-
 	rcchandle.pRCC = RCC ;
-	rcchandle.RCC_Config.clockSource = PLL_CLOCK;
-	rcchandle.RCC_Config.AHB_ClockFreq = 168000000;
-	rcchandle.RCC_Config.PLLSource = HSI_CLOCK;
-	rcchandle.RCC_Config.APB1_ClockFreq = 42000000;
-	rcchandle.RCC_Config.APB2_ClockFreq = 84000000;
+	rcchandle.RCC_Config.AHB_ClockFreq = 16 000000 ;
+	rcchandle.RCC_Config.clockSource = HSI_CLOCK;
+	rcchandle.RCC_Config.PLLSource = HSI_CLOCK ;
+	RCC_Init(&rcchandle);
 
-	RCC_Init(&rcchandle) ;
+	MCO_Config();
+	GPIO_Init(&GpioLed) ;
 
-	printf("ABH1 clock is %d  \n" , getAHBClock(&rcchandle)) ;
-	printf("APB1 clock is %d  \n" , getAPB1Clock(&rcchandle)) ;
-	printf("APB2 clock is %d  \n" , getAPB2Clock(&rcchandle)) ;
+	while(1){
+	GPIO_WriteToOutputPin(GPIOD, 15, 1) ;
+	sysTick_Delay(50, &rcchandle) ;
+	GPIO_WriteToOutputPin(GPIOD, 15, 0) ;
+	sysTick_Delay(50, &rcchandle) ;
+	}
+
 //
 //	rcchandle.pRCC = RCC ;
 //	rcchandle.RCC_Config.clockSource = PLL_CLOCK;

@@ -134,14 +134,13 @@ uint8_t MC02_source ;
 }RCC_Configuration_t;
 
 
-
 typedef struct{
 RCC_RegDef_t *pRCC ;
 RCC_Configuration_t RCC_Config ;
 }RCC_Handle_t;
 
 void RCC_Init(RCC_Handle_t* pRCCHandle );
-
+void sysTick_Delay(uint32_t delayMS , RCC_Handle_t* pRCCHandle) ;
 void changeClockSource(RCC_Handle_t* pRCCHandle );
 void setAHB1lock(RCC_Handle_t* pRCCHandle) ;
 void setAPB1Clock(RCC_Handle_t* pRCCHandle) ;

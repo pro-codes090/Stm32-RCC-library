@@ -7,6 +7,7 @@
 
 #include "stm32f407xx_RCC.h"
 
+
 void RCC_Init(RCC_Handle_t* pRCCHandle){
 
 	setAHB1lock(pRCCHandle) ;
@@ -15,6 +16,26 @@ void RCC_Init(RCC_Handle_t* pRCCHandle){
 	changeClockSource(pRCCHandle) ;
 
 	}
+
+void sysTick_Delay(uint32_t delayMS , RCC_Handle_t* pRCCHandle){
+
+	uint32_t* sysCSR = (uint32_t*)(0xE000E010);
+	uint32_t* sysRVR = (uint32_t*)(0xE000E014);
+	uint32_t* sysCVR = (uint32_t*)(0xE000E018);
+	uint32_t temp  = 0 ;
+	uint32_t count = 0 ;
+	*sysCSR |= (1 << 2);
+	temp = getAHBClock(pRCCHandle) / 1000 ;
+	*sysRVR &= ~(0xFFFFFF) ;
+	*sysRVR = temp ;
+	*sysCSR |= (1 << 0) ;
+	while(count <= delayMS){
+		if ((*sysCSR & (1 << 16))) {
+			count ++ ;
+			*sysRVR = temp ;
+		}
+	}
+}
 
 void setAHB1lock(RCC_Handle_t* pRCCHandle) {
 uint8_t i=0 ;
